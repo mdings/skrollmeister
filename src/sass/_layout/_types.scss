@@ -1,0 +1,86 @@
+/*
+ GENERIC STYLES
+ */
+
+h2 {
+  font-family: 'Nobile', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.8em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  margin-bottom: 1em;
+  color: #121212;
+}
+
+p {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+/* 
+ SIMPLE TEXT 
+*/
+
+.simple-text {
+  padding: 1em;
+  
+  @media screen and ( $tablet ) {
+    padding: 5em 15em 5em 5em;  
+  }
+  
+  h2 {
+    max-width: 80%;
+  }
+}
+
+/*
+ FULL IMAGE 
+ */
+
+.full--img {
+  background-image: url('../img/empty-608411_1280.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/*
+ COLORED
+ */
+
+.colored {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 3em;
+  font-weight: 200;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  
+  .content {
+    padding: 1em;
+    
+    @media screen and ( $tablet ) {
+      padding: 2em;
+    }
+  }
+  
+  &.colored--green {
+    color: #fff;
+    background-color: #b6bb20;
+  }
+
+  &.colored--blue {
+    background-color: #0f96a9;
+    color: #fff;
+  }
+
+  &.colored--yellow {
+    background: #FEB800;
+    color: #fff;
+  }
+}
+

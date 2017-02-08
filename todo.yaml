@@ -1,0 +1,6 @@
+Todo:
+  - Move FTP config to package.json
+  - Non-php with live-reload (connect?)
+  - grunt-uncss (low priority)
+  - html lint for html validation
+  - image synchronization between folders could be better probably

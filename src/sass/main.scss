@@ -1,0 +1,139 @@
+$tablet: 'min-width: 768px';
+
+@import "_layout/reset";
+@import "_layout/grid";
+@import "_layout/flickity";
+@import "_layout/types";
+
+* {
+  box-sizing: border-box;
+  
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+}
+
+html, body {
+  height: 100%;
+}
+
+
+.align--bottom {
+  @media screen and ( $tablet ) {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.align--middle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#markers {
+  position: absolute;
+  top: 0;
+  left: -1000px;
+  width: 40px;
+  z-index: 99999;
+  height: 100%;
+  
+  .section {
+    background-color: #000;
+    position: relative;
+    min-height: 100%;
+  }
+
+  .marker {
+    width: 100%;
+    height: 10px;  
+    
+    &:after {
+      float: left;
+      content: attr(id);
+      font-size: 12px;
+      position: absolute;
+      left: 50px;
+      top: -9px;
+      width: 200px;
+      background-color: red;
+      padding: 3px 4px;
+    }
+  }
+}
+
+#timeline {
+  z-index: 999;
+  
+  @media screen and  ( $tablet )  {
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    left: 0;
+  }
+  
+  section {
+    position: relative;
+    background-color: #fff;
+    min-height: 450px;
+    
+    @media screen and ( $tablet ) {
+      height: 100%;
+    }
+  }
+
+  .gallery {
+    @media screen and ( $tablet ) {
+      display: none;
+    }
+
+    &.flickity-enabled {
+      // when slides are gallery mode on mobile
+      .slide {
+        width: 100%;
+        height: 100%;
+        min-height: 450px;
+      }
+    }
+  }
+
+  
+}
+
+#slides {
+  .slide {
+    width: 100%;
+    position: relative;
+    display: none;
+    
+    @media screen and ( $tablet ) {
+      display: block;
+      position: fixed;
+      width: 50%;
+      min-height: 100%;
+      
+      &[data-effect^="slideInRight"] {
+        top: 0;
+        left: 100%;
+      }
+
+      &[data-effect^="slideInLeft"] {
+        top: 0;
+        left: 0%;
+      }
+
+      &[data-effect^="slideInBottom"] {
+        left: 50%;
+        top: 100%;
+      }
+
+      &[data-effect^="slideInTop"] {
+        left: 50%;
+        top: -100%;
+      }
+    }
+  }
+}
+

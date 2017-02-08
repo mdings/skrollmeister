@@ -1,0 +1,11 @@
+default: 
+  - autoprefixer
+  - concat
+  - ftpush
+  - sass
+  - stripmq
+  - uglify
+  - watch
+  - notify
+  - browserify
+  - modernizr
