@@ -119,7 +119,7 @@ var engine = {
   run: function() {
     s = skrollr.init({
       forceHeight: false,
-      smoothScrolling: false
+      smoothScrolling: true
     });
   },
 
