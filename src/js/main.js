@@ -1,6 +1,8 @@
-var engine = require('./modules/engine');
+var Engine = require('./modules/engine');
 var cache = require('./modules/cache');
 var Flickity = require('flickity-imagesloaded');
+
+let engine
 
 var bp = new Array;
 var mobileInitiated = false;
@@ -9,7 +11,7 @@ var rwd = {
 
   mqResponse: function( mq ) {
     if( mq.matches ) {
-      engine.init();
+      engine = new Engine()
     } else {
       engine.destroy();
       rwd.mobile();
