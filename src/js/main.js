@@ -7,6 +7,8 @@ let engine
 var bp = new Array;
 var mobileInitiated = false;
 
+
+
 var rwd = {
 
   mqResponse: function( mq ) {
