@@ -7,11 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-js": "browserify -t babelify src/js/main.js -o dist/main.js",
     "build-sass": "node-sass src/scss/main.scss dist/main.css",
-    "watch-js": "nodemon -e js -w src/js -x npm run build-js",
-    "watch-sass": "nodemon -e scss -w src/scss -x npm run build-sass",
+    "watch-js": "nodemon -e js -w src/js -x \"npm run build-js\"",
+    "watch-sass": "nodemon -e scss -w src/scss -x \"npm run build-sass\"",
     "build": "npm run build-js & npm run build-sass",
     "prewatch": "rimraf dist && mkdir dist",
-    "watch": "npm run watch-js & npm run watch-sass"
+    "watch": "concurrently \"npm run watch-js\" \"npm run watch-sass\" \"browser-sync start --server\""
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "rimraf": "^2.5.4"
   },
   "dependencies": {
+    "concurrently": "^3.3.0",
     "flickity-imagesloaded": "^2.0.0",
     "skrollr": "^0.6.26"
   }
