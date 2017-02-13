@@ -47,12 +47,25 @@ class Engine {
             const id = `marker${i}`
 
 
-            console.log(slide.innerHTML)
-
             // section.classList.add('section')
             marker.classList.add('marker')
             marker.id = id
             marker.style.height = `${kadans}px`
+
+            // Get the next element (::after is also considered a sibling)
+            if (!slide.nextSibling.nextSibling) {
+
+                // We need to check if we have to push the last marker a bit down (allowing for the text to scroll fully in view)
+
+                const textHeight = slide.parentNode.parentNode.clientHeight
+                const slidesHeight = kadans * slide.parentNode.children.length
+                if (textHeight > slidesHeight) {
+
+                    // console.log(`${textHeight - slidesHeight}px`)
+                    marker.style.height = `${textHeight - slidesHeight + kadans}px`
+                }
+            }
+
 
             // Append the newly created elements to the DOM
             // section.appendChild(marker)
