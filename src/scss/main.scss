@@ -19,6 +19,62 @@ html, body {
   height: 100%;
 }
 
+.skroll-outlet {
+
+    position: fixed;
+    width: 100%;
+
+    & > * {
+
+        min-height: 100vh;
+        display: flex;
+
+        & > * {
+
+            width: 50%;
+        }
+    }
+}
+
+[data-content] {
+
+  background-color: #fff;
+  position: relative;
+  z-index: 9;
+
+  // position: fixed;
+  // width: 50%;
+  // min-height: 100vh;
+  // top: 90%;
+}
+
+[data-slide] {
+
+    position: fixed;
+    width: 50%;
+    z-index: 0;
+    height: 100vh;
+
+    &[data-effect^="slideInRight"] {
+        top: 0;
+        left: 100%;
+    }
+
+    &[data-effect^="slideInLeft"] {
+        top: 0;
+        left: 0%;
+    }
+
+    &[data-effect^="slideInBottom"] {
+        left: 50%;
+        top: 100%;
+    }
+
+    &[data-effect^="slideInTop"] {
+        left: 50%;
+        top: -100%;
+    }
+}
 
 #markers {
   position: absolute;
@@ -31,12 +87,12 @@ html, body {
   .section {
     background-color: #000;
     position: relative;
-    min-height: 100%;
   }
 
   .marker {
     width: 100%;
     height: 10px;
+    position: relative;
 
     &:after {
       float: left;

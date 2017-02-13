@@ -10,10 +10,10 @@ const forEach = function (array, callback, scope) {
      }
 };
 
-const slides = document.querySelectorAll('.slide');
-const sections = document.querySelectorAll('#timeline > section');
+const slides = document.querySelectorAll('[data-slide]');
+const sections = document.querySelectorAll('[data-outlet] > *');
 const markers = document.getElementById('markers');
-const timeline = document.getElementById('timeline');
+const timeline = document.querySelector('[data-outlet]');
 const body = document.getElementsByTagName('body')[0];
 
 class Engine {
@@ -34,23 +34,42 @@ class Engine {
 
     createMarkers() {
 
+        let kadans = window.innerHeight
+
         // Set the height of the body to the height of the slides
         body.style.minHeight = `${slides.length*100}%`
 
-        // Create the actual markers        
+        // Create the actual markers
         forEach(slides, (i, slide) => {
 
-            const section = document.createElement('div')
+            // const section = document.createElement('div')
             const marker = document.createElement('div')
             const id = `marker${i}`
-            
-            section.classList.add('section')
+
+
+            // section.classList.add('section')
             marker.classList.add('marker')
             marker.id = id
+            marker.style.height = `${kadans}px`
+
+            // Get the next element (::after is also considered a sibling)
+            if (!slide.nextSibling.nextSibling) {
+
+                // We need to check if we have to push the last marker a bit down (allowing for the text to scroll fully in view)
+
+                const textHeight = slide.parentNode.parentNode.clientHeight
+                const slidesHeight = kadans * slide.parentNode.children.length
+                if (textHeight > slidesHeight) {
+
+                    // console.log(`${textHeight - slidesHeight}px`)
+                    marker.style.height = `${textHeight - slidesHeight + kadans}px`
+                }
+            }
+
 
             // Append the newly created elements to the DOM
-            section.appendChild(marker)
-            markers.appendChild(section)
+            // section.appendChild(marker)
+            markers.appendChild(marker)
         })
     }
 
@@ -80,18 +99,18 @@ class Engine {
             } else if (effect === 'slideInBottom') {
 
                 this.setAttributes(slide, {
-                    'data-bottom-top': 'transform: translate3d(0%,0,0)',
-                    'data-center': 'transform: translate3d(-100%,0,0)',
+                    'data-bottom-top': 'transform: translate3d(0,0%,0)',
+                    'data-center': 'transform: translate3d(0,-100%,0)',
                     'data-anchor-target': `#${id}`
                 });
 
             } else if (effect === 'slideInTop') {
 
                 this.setAttributes(slide, {
-                    'data-bottom-top': 'transform: translate3d(0%,0,0)',
-                    'data-center': 'transform: translate3d(100%,0,0)',
+                    'data-bottom-top': 'transform: translate3d(0,0%,0)',
+                    'data-center': 'transform: translate3d(0,100%,0)',
                     'data-anchor-target': `#${id}`
-                });                
+                });
             }
         })
     }
@@ -103,28 +122,28 @@ class Engine {
 
         // Calculate the indexes for the slides.
         // The timeline moves when at an index. Indexes are calculated by counting the number of slides per section
-        forEach(sections, (i, section) => {
+        // forEach(sections, (i, section) => {
 
-            const id = section.id
-            const slides = document.querySelectorAll(`[data-id*="${id}"]`)
-            indexes.push(slides.length)
-        })
+        //     const id = section.id
+        //     const slides = document.querySelectorAll(`[data-id*="${id}"]`)
+        //     indexes.push(slides.length)
+        // })
 
-        forEach(slides, (i, slide) => {
+        // forEach(slides, (i, slide) => {
 
-            if (i==(indexes[0])) {
+        //     if (i==(indexes[0])) {
 
-                // Remove the first element from the array
-                indexes.shift()
-                // And update the new index adding its value
-                indexes[0] = indexes[0] + i
-                // Update the current position
-                curPos = curPos - 100
-            }
+        //         // Remove the first element from the array
+        //         indexes.shift()
+        //         // And update the new index adding its value
+        //         indexes[0] = indexes[0] + i
+        //         // Update the current position
+        //         curPos = curPos - 100
+        //     }
 
-            // Set the timeline animation attributes
-            timeline.setAttribute(`data-${i*100}p`, `transform: translate3d(0,${curPos}%,0)`)
-        })
+        //     // Set the timeline animation attributes
+        //     timeline.setAttribute(`data-${i*100}p`, `transform: translate3d(0,${curPos}%,0)`)
+        // })
     }
 
     run() {
@@ -203,13 +222,13 @@ module.exports = Engine
 //       var id = 'marker' + i;
 //       var effect = elms['slides'][i].dataset.effect;
 
-//        // slide in from right 
+//        // slide in from right
 //       if( effect == 'slideInRight') {
 //         this.setAttributes( elms['slides'][i], {
 //           'data-bottom-top': 'transform: translate3d(0%,0,0)',
 //           'data-center': 'transform: translate3d(-100%,0,0)',
 //           'data-anchor-target': '#' + id
-//         }); 
+//         });
 
 //       // slide in from left
 //       } else if ( effect == 'slideInLeft') {
@@ -235,7 +254,7 @@ module.exports = Engine
 //           'data-anchor-target': '#' + id
 //         });
 //       }
-      
+
 //     }
 //   },
 
@@ -262,7 +281,7 @@ module.exports = Engine
 //         indexes[0] = i + indexes[0];
 //         //update the current position
 //         curPos = curPos - 100;
-//       } 
+//       }
 //       // set the timeline animation attributes
 //       elms['timeline'].setAttribute('data-' + i*100 + 'p', 'transform: translate3d(0,'+ curPos +'%,0)');
 //     }
@@ -284,11 +303,11 @@ module.exports = Engine
 //   destroy: function() {
 //     if( 'destroy' in s ) {
 //       this.releaseBodyHeight();
-//       s.destroy();  
+//       s.destroy();
 //     }
 //   },
 
-//   /* 
+//   /*
 //   ** helpers
 //   */
 
